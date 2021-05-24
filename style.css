@@ -7,3 +7,19 @@ td, th {
     border: 1px solid black;
     padding: 5px 10px;
 }
+
+#main-header{
+    text-align: center;
+}
+
+#new-coffee-header{
+    text-align: center;
+}
+
+ul{
+    list-style: none;
+}
+
+ul li{
+    display: inline;
+}
