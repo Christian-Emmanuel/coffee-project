@@ -3,10 +3,8 @@
 
 function renderCoffee(coffee) {
     let html = '<li class="coffee">';
-
     html += '<h1>' + coffee.name + '</h1>';
     html += '<p>' + coffee.roast + '</p>';
-
 
     return html;
 }
@@ -14,34 +12,49 @@ function renderCoffee(coffee) {
 function renderCoffees(coffees) {
     var html = '';
     for (var i = coffees.length - 1; i >= 0; i--) {
-        html += renderCoffee ( coffees[i] );
+        html += renderCoffee (coffees[i]);
     }
     return html;
 }
 
+
+//function to create new coffees and add them to coffees array//
+function addNewCoffee(input){
+   var newId = coffees.length+1;
+   var newName = coffeeInput.value.toString();
+   var newRoastName = newRoast.value.toString();
+   input = {id: newId, name: newName, roast: newRoastName};
+   coffees.push(input);
+   mainUl.innerHTML = renderCoffees(coffees)
+}
+
+
+
+//filters coffees based off of value from roast selection//
 function updateCoffees(e) {
     e.preventDefault (); // don't submit the form, we just want to update the data
     var selectedRoast = roastSelection.value;
     var filteredCoffees = [];
     coffees.forEach ( function (coffee) {
         if (coffee.roast === selectedRoast) {
-            filteredCoffees.push ( coffee );
+            filteredCoffees.push (coffee);
         } else if (selectedRoast === 'All') {
-            filteredCoffees.push ( coffee )
+            filteredCoffees.push (coffee);
         }
     } );
-    mainUl.innerHTML = renderCoffees ( filteredCoffees );
+    mainUl.innerHTML = renderCoffees (filteredCoffees);
 }
 
+//filters coffees based on keyup in text field//
 function searchForCoffees() {
-    var searchRoastType = coffeeSearch.value.toUpperCase ()
-    var filteredCoffees = []
+    var searchRoastType = coffeeSearch.value.toUpperCase();
+    var filteredCoffees = [];
     coffees.forEach ( function (coffee) {
-        if (coffee.name.toUpperCase ().includes ( searchRoastType )) {
-            filteredCoffees.push ( coffee );
+        if (coffee.name.toUpperCase ().includes (searchRoastType)) {
+            filteredCoffees.push (coffee);
         }
     } )
-    mainUl.innerHTML = renderCoffees ( filteredCoffees )
+    mainUl.innerHTML = renderCoffees (filteredCoffees);
 }
 
 
@@ -64,13 +77,18 @@ var coffees = [
 ];
 
 var mainUl = document.querySelector ( '#coffee' );
-var submitButton = document.querySelector ( '#submit' );
+mainUl.innerHTML = renderCoffees (coffees);
+
 var roastSelection = document.querySelector ( '#roast-selection' );
+var newRoast = document.querySelector(`#new-roast-selection`);
 
-mainUl.innerHTML = renderCoffees ( coffees );
-
+var submitButton = document.querySelector ( '#submit' );
 submitButton.addEventListener ( 'click', updateCoffees );
 
-var coffeeSearch = document.querySelector ( '#coffee-selection' )
+var coffeeSearch = document.querySelector ( '#coffee-selection' );
+coffeeSearch.addEventListener ( 'keyup', searchForCoffees );
 
-coffeeSearch.addEventListener ( 'keyup', searchForCoffees )
+var addedCoffee = document.querySelector("#new-coffee");
+addedCoffee.addEventListener(`click`, addNewCoffee);
+
+var coffeeInput = document.querySelector(`#new-coffee-selection`);
