@@ -21,5 +21,12 @@ ul{
 }
 
 ul li{
-    display: inline;
+    display: flex;
+    align-items: center;
+}
+
+p{
+    color: grey;
+    margin-bottom: 0;
+    margin-left: 5px;
 }
