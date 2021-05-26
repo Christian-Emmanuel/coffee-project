@@ -27,15 +27,12 @@ function renderCoffees(coffees) {
 
 //function to create new coffees and add them to coffees array//
 function addNewCoffee(input) {
-	var coffeeArr = getCoffees();
-	var newId = coffeeArr.length + 1;
+	var newId = coffees.length + 1;
 	var newName = coffeeInput.value.toString();
 	var newRoastName = newRoast.value.toString();
 	input = {id: newId, name: newName, roast: newRoastName};
-	coffeeArr.push(input);
-	saveCoffees(coffeeArr);
-	console.log(coffeeArr)
-	renderCoffees(getCoffees())
+	coffees.push(input);
+	renderCoffees(coffees)
 }
 
 
@@ -68,21 +65,19 @@ function searchForCoffees() {
 }
 
 function deleteCoffee() {
-	var coffeesArr = getCoffees()
-	coffeesArr.pop()
-	saveCoffees(coffeesArr)
-	renderCoffees(getCoffees())
+	coffees.pop()
+	renderCoffees(coffees)
 }
 
-function saveCoffees(arr) {
-	localStorage.setItem("coffees", JSON.stringify(arr))
-}
-
-function getCoffees(){
-	return JSON.parse(localStorage.getItem("coffees"));
-}
-
-console.log(getCoffees())
+// function saveCoffees(arr) {
+// 	localStorage.setItem("coffees", JSON.stringify(arr))
+// }
+//
+// function getCoffees(){
+// 	return JSON.parse(localStorage.getItem("coffees"));
+// }
+//
+// console.log(getCoffees())
 
 
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
@@ -103,13 +98,13 @@ var coffees = [
 	{id: 14, name: 'French', roast: 'dark'},
 ];
 
-function setInitialCoffees() {
-	if(!localStorage.getItem("coffees"))
-	saveCoffees(coffees)
-}
+// function setInitialCoffees() {
+// 	if(!localStorage.getItem("coffees"))
+// 	saveCoffees(coffees)
+// }
 
-setInitialCoffees()
-
+// setInitialCoffees()
+//
 
 
 var coffeesDiv = document.querySelector('#coffee');
