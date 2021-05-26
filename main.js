@@ -12,27 +12,30 @@ function renderCoffee(coffee) {
 	// coffeeDiv.appendChild(roastParagraph)
 
 	coffeeDiv.append(coffeeHeader, roastParagraph)
-	console.log(coffeeDiv);
+
 	return coffeeDiv;
 }
+
 
 function renderCoffees(coffees) {
 	coffeesDiv.replaceChildren();
 	for (var i = coffees.length - 1; i >= 0; i--) {
 		coffeesDiv.appendChild(renderCoffee(coffees[i]));
 	}
-
 }
 
 
 //function to create new coffees and add them to coffees array//
 function addNewCoffee(input) {
-	var newId = coffees.length + 1;
+	var coffeeArr = getCoffees();
+	var newId = coffeeArr.length + 1;
 	var newName = coffeeInput.value.toString();
 	var newRoastName = newRoast.value.toString();
 	input = {id: newId, name: newName, roast: newRoastName};
-	coffees.push(input);
-	renderCoffees(coffees)
+	coffeeArr.push(input);
+	saveCoffees(coffeeArr);
+	console.log(coffeeArr)
+	renderCoffees(getCoffees())
 }
 
 
@@ -41,7 +44,7 @@ function updateCoffees(e) {
 	e.preventDefault(); // don't submit the form, we just want to update the data
 	var selectedRoast = roastSelection.value;
 	var filteredCoffees = [];
-	coffees.forEach(function (coffee) {
+	getCoffees().forEach(function (coffee) {
 		if (coffee.roast === selectedRoast) {
 			filteredCoffees.push(coffee);
 		} else if (selectedRoast === 'All') {
@@ -55,7 +58,8 @@ function updateCoffees(e) {
 function searchForCoffees() {
 	var searchRoastType = coffeeSearch.value.toUpperCase();
 	var filteredCoffees = [];
-	coffees.forEach(function (coffee) {
+	console.log(getCoffees())
+	getCoffees().forEach(function (coffee) {
 		if (coffee.name.toUpperCase().includes(searchRoastType)) {
 			filteredCoffees.push(coffee);
 		}
@@ -64,9 +68,21 @@ function searchForCoffees() {
 }
 
 function deleteCoffee() {
-	coffees.pop()
-	renderCoffees(coffees)
+	var coffeesArr = getCoffees()
+	coffeesArr.pop()
+	saveCoffees(coffeesArr)
+	renderCoffees(getCoffees())
 }
+
+function saveCoffees(arr) {
+	localStorage.setItem("coffees", JSON.stringify(arr))
+}
+
+function getCoffees(){
+	return JSON.parse(localStorage.getItem("coffees"));
+}
+
+console.log(getCoffees())
 
 
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
@@ -86,6 +102,15 @@ var coffees = [
 	{id: 13, name: 'Italian', roast: 'dark'},
 	{id: 14, name: 'French', roast: 'dark'},
 ];
+
+function setInitialCoffees() {
+	if(!localStorage.getItem("coffees"))
+	saveCoffees(coffees)
+}
+
+setInitialCoffees()
+
+
 
 var coffeesDiv = document.querySelector('#coffee');
 renderCoffees(coffees);
