@@ -16,17 +16,21 @@ td, th {
     text-align: center;
 }
 
-ul{
-    list-style: none;
-}
-
-ul li{
-    display: flex;
-    align-items: center;
-}
-
 p{
     color: grey;
     margin-bottom: 0;
     margin-left: 5px;
 }
+
+#coffee{
+    display: flex;
+    flex-flow: column wrap;
+    height: 400px;
+    align-content: space-evenly;
+}
+
+#coffee div{
+    display: flex;
+    align-items: center;
+}
+
