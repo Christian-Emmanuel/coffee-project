@@ -55,7 +55,6 @@ function updateCoffees(e) {
 function searchForCoffees() {
 	var searchRoastType = coffeeSearch.value.toUpperCase();
 	var filteredCoffees = [];
-	console.log(getCoffees())
 	coffees.forEach(function (coffee) {
 		if (coffee.name.toUpperCase().includes(searchRoastType)) {
 			filteredCoffees.push(coffee);
