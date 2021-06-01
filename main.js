@@ -4,12 +4,13 @@
 function renderCoffee(coffee) {
 	var coffeeDiv = document.createElement("div")
 	coffeeDiv.setAttribute("class", "coffee")
+
 	var coffeeHeader = document.createElement("h1")
 	coffeeHeader.textContent = coffee.name
-	// coffeeDiv.appendChild(coffeeHeader);
+
 	var roastParagraph = document.createElement("p")
 	roastParagraph.textContent = coffee.roast
-	// coffeeDiv.appendChild(roastParagraph)
+
 
 	coffeeDiv.append(coffeeHeader, roastParagraph)
 
